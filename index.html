@@ -7,9 +7,9 @@
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;500;600;700&display=swap');
         body {
-            font-family: 'Inter', sans-serif;
+            font-family: 'Noto Serif JP', serif;
             @apply bg-gray-50 text-gray-800;
         }
         .bg-pattern {
@@ -27,6 +27,39 @@
                 min-height: 6rem; /* デスクトップ表示での調整 */
             }
         }
+        /* スケジュール表のセル調整 */
+        .schedule-table th, .schedule-table td {
+            @apply px-4 py-2 border border-gray-200 text-sm;
+        }
+        .schedule-arrow {
+            position: relative;
+            height: 10px;
+            width: 100%;
+            background-color: #3b82f6; /* blue-500 */
+            border-radius: 9999px; /* rounded-full */
+            margin-top: 0.5rem;
+        }
+        .schedule-arrow::after {
+            content: '';
+            position: absolute;
+            right: -5px;
+            top: 50%;
+            transform: translateY(-50%) rotate(45deg);
+            width: 10px;
+            height: 10px;
+            border-top: 2px solid #3b82f6;
+            border-right: 2px solid #3b82f6;
+        }
+        .schedule-text {
+            position: absolute;
+            top: -1.5rem;
+            left: 50%;
+            transform: translateX(-50%);
+            white-space: nowrap;
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: #3b82f6;
+        }
     </style>
 </head>
 <body class="bg-pattern">
@@ -38,23 +71,45 @@
             </div>
             <nav class="hidden md:flex space-x-6 text-lg">
                 <a href="#plans" class="text-gray-600 hover:text-blue-600 transition-colors">プラン</a>
+                <a href="#details" class="text-gray-600 hover:text-blue-600 transition-colors">提供メニュー</a>
+                <a href="#schedule" class="text-gray-600 hover:text-blue-600 transition-colors">伴走スケジュール</a>
                 <a href="#contact" class="text-gray-600 hover:text-blue-600 transition-colors">お問い合わせ</a>
             </nav>
         </div>
     </header>
 
-    <!-- ヒーローセクション -->
-    <section class="bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 text-white py-24 md:py-32 rounded-b-3xl shadow-xl">
-        <div class="container mx-auto px-4 text-center">
-            <h1 class="text-4xl md:text-6xl font-extrabold leading-tight tracking-tight mb-4">
-                組織の可能性を最大限に引き出す
-            </h1>
-            <p class="text-lg md:text-xl text-gray-300 max-w-3xl mx-auto mb-8">
-                経営層からチームメンバーまで、全員の成長を促し、自律的な組織変革を支援します。
-            </p>
-            <a href="#plans" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-8 rounded-full text-lg shadow-lg transform hover:scale-105 transition duration-300 ease-in-out">
-                プランを見る
-            </a>
+    <!-- ヒーローセクション（動画背景） -->
+    <section class="relative overflow-hidden rounded-b-3xl shadow-xl">
+        <!-- 背景動画 -->
+        <video
+            class="absolute inset-0 w-full h-full object-cover"
+            autoplay
+            muted
+            loop
+            playsinline
+            preload="metadata"
+            poster="/hero-poster.jpg"
+            aria-hidden="true"
+        >
+            <source src="/hero.mp4" type="video/mp4" />
+        </video>
+
+        <!-- 可読性のためのオーバーレイ -->
+        <div class="absolute inset-0 bg-gradient-to-br from-gray-900/80 via-gray-900/60 to-gray-900/80"></div>
+
+        <!-- コンテンツ -->
+        <div class="relative text-white py-24 md:py-32">
+            <div class="container mx-auto px-4 text-center">
+                <h1 class="text-4xl md:text-6xl font-extrabold leading-tight tracking-tight mb-4">
+                    組織の可能性を最大限に引き出す
+                </h1>
+                <p class="text-lg md:text-xl text-gray-200 max-w-3xl mx-auto mb-8">
+                    経営層からチームメンバーまで、全員の成長を促し、自律的な組織変革を支援します。
+                </p>
+                <a href="#plans" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-8 rounded-full text-lg shadow-lg transform hover:scale-105 transition duration-300 ease-in-out">
+                    プランを見る
+                </a>
+            </div>
         </div>
     </section>
 
@@ -73,12 +128,12 @@
                         <h3 class="text-3xl font-bold text-blue-600 mb-2">プレミアム</h3>
                         <p class="text-gray-600 mb-4 font-medium plan-description">組織の未来を創造する、最高峰のコーチングプラン。チーム全体の成長と、経営層に特化したパーソナルセッションで、組織全体の変革と成長を加速させます。</p>
                         <div class="mb-6 text-4xl font-extrabold text-gray-900">
-                            270万円<span class="text-base font-medium">（税抜）</span>
+                            600万円<span class="text-base font-medium">（税抜）</span>
                         </div>
                         <h4 class="font-bold text-lg text-gray-900 mb-1">含まれるもの:</h4>
                         <ul class="list-none space-y-2 text-gray-700 text-base">
                             <li class="flex items-center"><svg class="w-5 h-5 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>全メンバー会議 (5時間 x 6回)</li>
-                            <li class="flex items-center"><svg class="w-5 h-5 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>全メンバー個人セッション (90分 x 2回)</li>
+                            <li class="flex items-center"><svg class="w-5 h-5 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>メンバー個人セッション (90分 x 2回)</li>
                             <li class="flex items-center"><svg class="w-5 h-5 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>経営幹部個人セッション (60分 x 6回)</li>
                         </ul>
                     </div>
@@ -91,7 +146,7 @@
                         <h3 class="text-3xl font-bold text-gray-900 mb-2">スタンダード</h3>
                         <p class="text-gray-600 mb-4 font-medium plan-description">チームの自走力を高め、次世代リーダーを育てるプラン。集団の成果を最大化するチームコーチングと、経営幹部の個人セッションで、組織に新たな活力を与えます。</p>
                         <div class="mb-6 text-4xl font-extrabold text-gray-900">
-                            190万円<span class="text-base font-medium">（税抜）</span>
+                            440万円<span class="text-base font-medium">（税抜）</span>
                         </div>
                         <h4 class="font-bold text-lg text-gray-900 mb-1">含まれるもの:</h4>
                         <ul class="list-none space-y-2 text-gray-700 text-base">
@@ -108,7 +163,7 @@
                         <h3 class="text-3xl font-bold text-blue-600 mb-2">ベーシック</h3>
                         <p class="text-gray-600 mb-4 font-medium plan-description">組織コーチングの第一歩として最適な、入門プラン。チーム内の円滑なコミュニケーションと、代表者のビジョン浸透に焦点を当て、組織文化の基盤を構築します。</p>
                         <div class="mb-6 text-4xl font-extrabold text-gray-900">
-                            120万円<span class="text-base font-medium">（税抜）</span>
+                            280万円<span class="text-base font-medium">（税抜）</span>
                         </div>
                         <h4 class="font-bold text-lg text-gray-900 mb-1">含まれるもの:</h4>
                         <ul class="list-none space-y-2 text-gray-700 text-base">
@@ -131,16 +186,16 @@
                             <th class="px-6 py-4 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider"></th>
                             <th class="px-6 py-4 text-center text-lg font-bold text-gray-900">
                                 <p>プレミアム</p>
-                                <p class="text-2xl font-extrabold mt-1">270万円</p>
+                                <p class="text-2xl font-extrabold mt-1">600万円</p>
                             </th>
                             <th class="px-6 py-4 text-center text-lg font-bold text-gray-900 relative">
                                 <p class="absolute -top-3 left-1/2 -translate-x-1/2 bg-blue-600 text-white text-xs font-bold px-3 py-1 rounded-full">最も人気</p>
                                 <p>スタンダード</p>
-                                <p class="text-2xl font-extrabold mt-1">190万円</p>
+                                <p class="text-2xl font-extrabold mt-1">440万円</p>
                             </th>
                             <th class="px-6 py-4 text-center text-lg font-bold text-gray-900">
                                 <p>ベーシック</p>
-                                <p class="text-2xl font-extrabold mt-1">120万円</p>
+                                <p class="text-2xl font-extrabold mt-1">280万円</p>
                             </th>
                         </tr>
                     </thead>
@@ -182,90 +237,161 @@
                     </tbody>
                 </table>
             </div>
+        </div> <!-- CLOSE: .container for #plans -->
+    </section> <!-- CLOSE: #plans -->
 
-            <!-- 各メニュー詳細セクション -->
-            <div class="mt-20">
-                <h2 class="text-3xl md:text-4xl font-bold text-center text-gray-900 mb-12">
-                    提供メニューの詳細
-                </h2>
-                <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
-                    <!-- 全メンバー会議カード -->
-                    <div class="bg-white p-8 rounded-2xl shadow-md">
-                        <h3 class="text-2xl font-bold text-blue-600 mb-4">全メンバー会議</h3>
-                        <p class="text-gray-700 mb-4">
-                            プロのコーチがファシリテーターとなり、チームの対話を促進し、<strong>自律的な組織成長</strong>をサポートします。貴社のMVVを深く掘り下げ、全メンバーが<strong>カルチャーを体現</strong>できるよう浸透させます。個々の能力と会社全体のゴールを繋ぐことで、<strong>最適な人材配置</strong>と<strong>持続可能な成長</strong>を実現します。
-                        </p>
-                        <ul class="list-none space-y-4 text-gray-800">
-                            <li class="relative pl-6">
-                                <span class="absolute left-0 top-0 text-xl text-blue-600">▪</span>
-                                <strong class="font-semibold">具体的な内容:</strong> MVVの定義と浸透、個人と組織の目標の最適配置、GOAL達成に必要な組織構造と役割のフォーカス、持続的な成長を機能させる仕組みづくり。
-                            </li>
-                            <li class="relative pl-6">
-                                <span class="absolute left-0 top-0 text-xl text-blue-600">▪</span>
-                                <strong class="font-semibold">得られる成果:</strong> <strong>自律自走</strong>するチームの実現、<strong>エンゲージメント</strong>と<strong>カルチャーの体現</strong>、メンバーの<strong>ポテンシャル最大化</strong>、<strong>GOALへの最短最速成長</strong>。
-                            </li>
-                        </ul>
-                    </div>
+    <!-- 伴走スケジュールセクション（#plans の外） -->
+    <section id="schedule" class="py-16 md:py-24">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl md:text-4xl font-bold text-center text-gray-900 mb-12">
+                6ヶ月間の伴走スケジュール
+            </h2>
+            <p class="text-lg text-center text-gray-600 mb-8 max-w-3xl mx-auto">
+                組織コーチングの全体のスケジュールイメージです。貴社の状況に合わせて柔軟にカスタマイズ可能です。
+            </p>
+            <div class="overflow-x-auto bg-white rounded-2xl shadow-lg">
+                <table class="min-w-full border-collapse schedule-table">
+                    <thead>
+                        <tr class="bg-blue-600 text-white font-bold">
+                            <th class="px-4 py-4 text-left whitespace-nowrap">メニュー</th>
+                            <th class="px-4 py-4 text-center">1ヶ月目</th>
+                            <th class="px-4 py-4 text-center">2ヶ月目</th>
+                            <th class="px-4 py-4 text-center">3ヶ月目</th>
+                            <th class="px-4 py-4 text-center">4ヶ月目</th>
+                            <th class="px-4 py-4 text-center">5ヶ月目</th>
+                            <th class="px-4 py-4 text-center">6ヶ月目</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-gray-200">
+                        <!-- 全メンバー会議 -->
+                        <tr>
+                            <td class="px-4 py-4 text-sm font-medium text-gray-900">全メンバー会議</td>
+                            <td colspan="6" class="px-4 py-4 text-center relative">
+                                <div class="schedule-arrow">
+                                    <span class="schedule-text">毎月1回</span>
+                                </div>
+                            </td>
+                        </tr>
+                        <!-- メンバー個人セッション -->
+                        <tr>
+                            <td class="px-4 py-4 text-sm font-medium text-gray-900">メンバー個人セッション</td>
+                            <td colspan="2" class="px-4 py-4 text-center relative">
+                                <div class="schedule-arrow">
+                                    <span class="schedule-text">1ヶ月目〜2ヶ月目前半</span>
+                                </div>
+                            </td>
+                            <td class="px-4 py-4 text-center text-gray-400"></td>
+                            <td class="px-4 py-4 text-center text-gray-400"></td>
+                            <td class="px-4 py-4 text-center text-gray-400"></td>
+                            <td class="px-4 py-4 text-center text-gray-400"></td>
+                        </tr>
+                        <!-- 経営幹部個人セッション -->
+                        <tr>
+                            <td class="px-4 py-4 text-sm font-medium text-gray-900">経営幹部個人セッション</td>
+                            <td colspan="6" class="px-4 py-4 text-center relative">
+                                <div class="schedule-arrow">
+                                    <span class="schedule-text">毎月1回</span>
+                                </div>
+                            </td>
+                        </tr>
+                        <!-- AIコーチングサポート -->
+                        <tr>
+                            <td class="px-4 py-4 text-sm font-medium text-gray-900">AIコーチングサポート</td>
+                            <td colspan="6" class="px-4 py-4 text-center relative">
+                                <div class="schedule-arrow">
+                                    <span class="schedule-text">期間中いつでも利用可能</span>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
 
-                    <!-- メンバー個人セッションカード -->
-                    <div class="bg-white p-8 rounded-2xl shadow-md">
-                        <h3 class="text-2xl font-bold text-blue-600 mb-4">全メンバー個人セッション</h3>
-                        <p class="text-gray-700 mb-4">
-                            コーチとの1対1の対話を通じて、メンバー一人ひとりが<strong>自己理解を深め</strong>、自身の強みや得意領域を発見します。会社のビジョンと自身のキャリアゴールを同期させ、主体的な行動を促すための<strong>明確な目標設定</strong>をサポートします。
-                        </p>
-                        <ul class="list-none space-y-4 text-gray-800">
-                            <li class="relative pl-6">
-                                <span class="absolute left-0 top-0 text-xl text-blue-600">▪</span>
-                                <strong class="font-semibold">具体的な内容:</strong> 自己理解による得意領域の発見、会社のビジョンに結びついたGOAL設定、具体的な行動計画の策定。
-                            </li>
-                            <li class="relative pl-6">
-                                <span class="absolute left-0 top-0 text-xl text-blue-600">▪</span>
-                                <strong class="font-semibold">得られる成果:</strong> 個人の<strong>ポテンシャル最大化</strong>、会社の<strong>GOALに適した人材の配置</strong>。
-                            </li>
-                        </ul>
-                    </div>
+    <!-- 提供メニュー詳細セクション（#plans の外） -->
+    <section id="details" class="py-16 md:py-24">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl md:text-4xl font-bold text-center text-gray-900 mb-12">
+                提供メニューの詳細
+            </h2>
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+                <!-- 全メンバー会議カード -->
+                <div class="bg-white p-8 rounded-2xl shadow-md">
+                    <h3 class="text-2xl font-bold text-blue-600 mb-4">全メンバー会議</h3>
+                    <p class="text-gray-700 mb-4">
+                        プロのコーチがファシリテーターとなり、チームの対話を促進し、<strong>自律的な組織成長</strong>をサポートします。貴社のMVVを深く掘り下げ、全メンバーが<strong>カルチャーを体現</strong>できるよう浸透させます。個々の能力と会社全体のゴールを繋ぐことで、<strong>最適な人材配置</strong>と<strong>持続可能な成長</strong>を実現します。
+                    </p>
+                    <ul class="list-none space-y-4 text-gray-800">
+                        <li class="relative pl-6">
+                            <span class="absolute left-0 top-0 text-xl text-blue-600">▪</span>
+                            <strong class="font-semibold">具体的な内容:</strong> MVVの定義と浸透、個人と組織の目標の最適配置、GOAL達成に必要な組織構造と役割のフォーカス、持続的な成長を機能させる仕組みづくり。
+                        </li>
+                        <li class="relative pl-6">
+                            <span class="absolute left-0 top-0 text-xl text-blue-600">▪</span>
+                            <strong class="font-semibold">得られる成果:</strong> <strong>自律自走</strong>するチームの実現、<strong>エンゲージメント</strong>と<strong>カルチャーの体現</strong>、メンバーの<strong>ポテンシャル最大化</strong>、<strong>GOALへの最短最速成長</strong>。
+                        </li>
+                    </ul>
+                </div>
 
-                    <!-- 経営幹部個人セッションカード -->
-                    <div class="bg-white p-8 rounded-2xl shadow-md">
-                        <h3 class="text-2xl font-bold text-blue-600 mb-4">経営幹部・代表個人セッション</h3>
-                        <p class="text-gray-700 mb-4">
-                            組織の未来を担う経営層に特化した<strong>個別コーチング</strong>を提供します。<strong>強固なリーダーシップ</strong>を発揮するためのセルフイメージを開発し、<strong>ゴールに紐づく一貫した意思決定</strong>をサポート。マネジメントの課題解決を支援し、組織変革の推進力を高めます。
-                        </p>
-                        <ul class="list-none space-y-4 text-gray-800">
-                            <li class="relative pl-6">
-                                <span class="absolute left-0 top-0 text-xl text-blue-600">▪</span>
-                                <strong class="font-semibold">具体的な内容:</strong> GOALに紐づく意思決定サポート、役割の定義と適したセルフイメージ開発、マネジメント支援、組織変革の推進。
-                            </li>
-                            <li class="relative pl-6">
-                                <span class="absolute left-0 top-0 text-xl text-blue-600">▪</span>
-                                <strong class="font-semibold">得られる成果:</strong> その人に適した<strong>強力なリーダーシップ</strong>、<strong>GOALをぶらさない意思決定能力</strong>の確立。
-                            </li>
-                        </ul>
-                    </div>
+                <!-- メンバー個人セッションカード -->
+                <div class="bg-white p-8 rounded-2xl shadow-md">
+                    <h3 class="text-2xl font-bold text-blue-600 mb-4">メンバー個人セッション</h3>
+                    <p class="text-gray-700 mb-4">
+                        コーチとの1対1の対話を通じて、メンバー一人ひとりが<strong>自己理解を深め</strong>、自身の強みや得意領域を発見します。会社のビジョンと自身のキャリアゴールを同期させ、主体的な行動を促すための<strong>明確な目標設定</strong>をサポートします。
+                    </p>
+                    <ul class="list-none space-y-4 text-gray-800">
+                        <li class="relative pl-6">
+                            <span class="absolute left-0 top-0 text-xl text-blue-600">▪</span>
+                            <strong class="font-semibold">具体的な内容:</strong> 自己理解による得意領域の発見、会社のビジョンに結びついたGOAL設定、具体的な行動計画の策定。
+                        </li>
+                        <li class="relative pl-6">
+                            <span class="absolute left-0 top-0 text-xl text-blue-600">▪</span>
+                            <strong class="font-semibold">得られる成果:</strong> 個人の<strong>ポテンシャル最大化</strong>、会社の<strong>GOALに適した人材の配置</strong>。
+                        </li>
+                    </ul>
+                </div>
 
-                    <!-- AIコーチングカード -->
-                    <div class="bg-white p-8 rounded-2xl shadow-md">
-                        <h3 class="text-2xl font-bold text-blue-600 mb-4">AIコーチングによるサポート</h3>
-                        <p class="text-gray-700 mb-4">
-                            個人セッションがないプランでも、全メンバーが24時間いつでも利用できるAIコーチングツールを提供。個人の強みや目標を客観的に分析し、<strong>継続的な自己理解とゴール設定</strong>をサポートします。
-                        </p>
-                        <ul class="list-none space-y-4 text-gray-800">
-                            <li class="relative pl-6">
-                                <span class="absolute left-0 top-0 text-xl text-blue-600">▪</span>
-                                <strong class="font-semibold">具体的な内容:</strong> 自己理解とGOAL設定のサポート、パーソナライズされたフィードバック、自律的な学習機会の提供。
-                            </li>
-                            <li class="relative pl-6">
-                                <span class="absolute left-0 top-0 text-xl text-blue-600">▪</span>
-                                <strong class="font-semibold">得られる成果:</strong> 個人の<strong>ポテンシャル最大化</strong>、会社の<strong>GOALに適した人材の配置</strong>。
-                            </li>
-                        </ul>
-                    </div>
+                <!-- 経営幹部個人セッションカード -->
+                <div class="bg-white p-8 rounded-2xl shadow-md">
+                    <h3 class="text-2xl font-bold text-blue-600 mb-4">経営幹部・代表個人セッション</h3>
+                    <p class="text-gray-700 mb-4">
+                        組織の未来を担う経営層に特化した<strong>個別コーチング</strong>を提供します。<strong>強固なリーダーシップ</strong>を発揮するためのセルフイメージを開発し、<strong>ゴールに紐づく一貫した意思決定</strong>をサポート。マネジメントの課題解決を支援し、組織変革の推進力を高めます。
+                    </p>
+                    <ul class="list-none space-y-4 text-gray-800">
+                        <li class="relative pl-6">
+                            <span class="absolute left-0 top-0 text-xl text-blue-600">▪</span>
+                            <strong class="font-semibold">具体的な内容:</strong> GOALに紐づく意思決定サポート、役割の定義と適したセルフイメージ開発、マネジメント支援、組織変革の推進。
+                        </li>
+                        <li class="relative pl-6">
+                            <span class="absolute left-0 top-0 text-xl text-blue-600">▪</span>
+                            <strong class="font-semibold">得られる成果:</strong> その人に適した<strong>強力なリーダーシップ</strong>、<strong>GOALをぶらさない意思決定能力</strong>の確立。
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- AIコーチングカード -->
+                <div class="bg-white p-8 rounded-2xl shadow-md">
+                    <h3 class="text-2xl font-bold text-blue-600 mb-4">AIコーチングによるサポート</h3>
+                    <p class="text-gray-700 mb-4">
+                        個人セッションがないプランでも、全メンバーが24時間いつでも利用できるAIコーチングツールを提供。個人の強みや目標を客観的に分析し、<strong>継続的な自己理解とゴール設定</strong>をサポートします。
+                    </p>
+                    <ul class="list-none space-y-4 text-gray-800">
+                        <li class="relative pl-6">
+                            <span class="absolute left-0 top-0 text-xl text-blue-600">▪</span>
+                            <strong class="font-semibold">具体的な内容:</strong> 自己理解とGOAL設定のサポート、パーソナライズされたフィードバック、自律的な学習機会の提供。
+                        </li>
+                        <li class="relative pl-6">
+                            <span class="absolute left-0 top-0 text-xl text-blue-600">▪</span>
+                            <strong class="font-semibold">得られる成果:</strong> 個人の<strong>ポテンシャル最大化</strong>、会社の<strong>GOALに適した人材の配置</strong>。
+                        </li>
+                    </ul>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- CTAセクション -->
+    <!-- CTAセクション（全幅背景） -->
     <section id="contact" class="bg-blue-600 text-white py-16 md:py-24">
         <div class="container mx-auto px-4 text-center">
             <h2 class="text-3xl md:text-4xl font-bold mb-4">
@@ -274,16 +400,16 @@
             <p class="text-lg md:text-xl max-w-2xl mx-auto mb-8">
                 貴社の現状や目指すゴールについて、まずはお気軽にご相談ください。
             </p>
-            <a href="#" class="bg-white text-blue-600 font-bold py-3 px-8 rounded-full text-lg shadow-lg transform hover:scale-105 transition duration-300 ease-in-out">
+            <a href="https://docs.google.com/forms/d/e/1FAIpQLSdN2VXQLLTFwIra520ee3x8IFn_Gna8EaSTeWNItaco0eRDPQ/viewform?usp=header" target="_blank" rel="noopener noreferrer" class="bg-white text-blue-600 font-bold py-3 px-8 rounded-full text-lg shadow-lg transform hover:scale-105 transition duration-300 ease-in-out">
                 無料相談を申し込む
             </a>
         </div>
     </section>
 
-    <!-- フッター -->
+    <!-- フッター（全幅背景） -->
     <footer class="bg-gray-900 text-gray-400 py-8">
         <div class="container mx-auto px-4 text-center">
-            <p>&copy; 2024 ORGANIZATION COACHING. All Rights Reserved.</p>
+            <p>&copy; 2025 Authentic Growth,LLC. All Rights Reserved.</p>
         </div>
     </footer>
 </body>
